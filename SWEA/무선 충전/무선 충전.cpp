@@ -22,6 +22,8 @@ int main() {
 
 	int T;
 	cin >> T;
+	int dx[5] = { 0,0,1,0,-1 };
+	int dy[5] = { 0,-1,0,1,0 };
 	for (int i = 0; i < T; i++) {
 		int A_move[102];
 		int B_move[102];
@@ -51,34 +53,16 @@ int main() {
 		B_point.x = 10;
 		B_point.y = 10;
 		for (int j = 0; j <= M; j++) { //움직이기
-			if (A_move[j] == 1)
-				A_point.y = A_point.y - 1;
-			else if (A_move[j] == 2)
-				A_point.x = A_point.x + 1;
-			else if (A_move[j] == 3)
-				A_point.y = A_point.y + 1;
-			else if (A_move[j] == 4)
-				A_point.x = A_point.x - 1;
 
-			if (B_move[j] == 1)
-				B_point.y = B_point.y - 1;
-			else if (B_move[j] == 2)
-				B_point.x = B_point.x + 1;
-			else if (B_move[j] == 3)
-				B_point.y = B_point.y + 1;
-			else if (B_move[j] == 4)
-				B_point.x = B_point.x - 1;
-
+			A_point.x += dx[A_move[j]];
+			A_point.y += dy[A_move[j]];
+			B_point.x += dx[B_move[j]];
+			B_point.y += dy[B_move[j]];
 			
 			int A_p = 0;
 			int B_p = 0;
 
-			//std::cout << "A의 좌표 : " << A_point.x << " " << A_point.y << endl;
-			//std::cout << "B의 좌표 : " << B_point.x << " " << B_point.y << endl;
 			for (int k = 0; k < BC_list.size(); k++) {
-				/*if (abs(A_point.x - BC_list[k].x) + abs(A_point.y - BC_list[k].y) <= BC_list[k].c) {
-					tmp_A_p = BC_list[k].p;
-				}*/
 				for (int l = 0; l < BC_list.size(); l++) {
 					int tmp_A_p = 0;
 					int tmp_B_p = 0;
@@ -95,7 +79,7 @@ int main() {
 						//원래의 B가 더 큰경우.
 						//둘 다 아닌경우.
 					}
-					else {
+					else { //둘중에 하나만 포함된 경우
 						if (abs(A_point.x - BC_list[k].x) + abs(A_point.y - BC_list[k].y) <= BC_list[k].c) { //A만 포함
 							tmp_A_p = BC_list[k].p;
 						}
@@ -104,7 +88,7 @@ int main() {
 							tmp_B_p = BC_list[l].p;
 						}
 					}
-					if (A_p + B_p < tmp_B_p + tmp_A_p) {
+					if (A_p + B_p < tmp_B_p + tmp_A_p) { //max값 찾기
 						A_p = tmp_A_p;
 						B_p = tmp_B_p;
 					}
@@ -112,39 +96,11 @@ int main() {
 				}
 				
 			}
-			//std::cout << j << ": " << A_p << " " << B_p << endl;
 			A_sum += A_p;
 			B_sum += B_p;
-			/*for (int k = 0; k < BC_list.size(); k++) {
-				if ((abs(A_point.x - BC_list[i].x) + abs(A_point.y - BC_list[i].y) <= BC_list[i].c) && (abs(B_point.x - BC_list[i].x) + abs(B_point.y - BC_list[i].y) <= BC_list[i].c)) {
-					//A,B둘다 포함된 경우
-
-					//원래의 A가 더 큰경우
-					if (A_p > BC_list[i].p / 2) {
-
-					}
-					//원래의 B가 더 큰경우.
-					//둘 다 아닌경우.
-				}
-				else {
-					if (abs(A_point.x - BC_list[i].x) + abs(A_point.y - BC_list[i].y) <= BC_list[i].c) { //A만 포함
-						if (A_p < BC_list[i].p)
-							A_p = BC_list[i].p;
-					}
-					else if (abs(B_point.x - BC_list[i].x) + abs(B_point.y - BC_list[i].y) <= BC_list[i].c) { //B만 포함
-						if (B_p < BC_list[i].p)
-							B_p = BC_list[i].p;
-					}
-				}*/
-
-			
 		}
-		
-		//std::cout << "A의 p : " << A_sum << endl;
-		//std::cout << "B의 p : " << B_sum << endl;
 		std::cout << "#" << i + 1 << " " << A_sum + B_sum << endl;
 	}
-	std::cout << "what" << endl;
 
 	return 0;
 }
