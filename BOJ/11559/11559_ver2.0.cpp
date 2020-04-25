@@ -1,5 +1,6 @@
 /*
-BOJ 11559번: Puyo Puyo
+BOJ 11559번 : Puyo Puyo
+문제
 */
 
 #include <iostream>
