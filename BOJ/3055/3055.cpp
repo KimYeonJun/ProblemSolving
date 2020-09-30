@@ -8,7 +8,7 @@ BOJ 3055번: 탈출
 	-> 이동 시, 해당 칸에 물 보다 먼저 도착했는지 확인
 	-> 먼저 도착했으면, 그 칸으로 이동.
 */
-#include <iostream>
+include <iostream>
 #include <algorithm>
 #include <string>
 #include <cstring>
@@ -94,4 +94,29 @@ int main() {
 	ios::sync_with_stdio(false);
 	cin.tie(NULL);
 	cout.tie(NULL);
+	cin >> R >> C;
+	for (int i = 0; i < R; i++) {
+		string input;
+		cin >> input;
+		for (int j = 0; j < C; j++) {
+			board[i][j] = input[j];
+			if (board[i][j] == 'D') {
+				ex = i;
+				ey = j;
+			}
+			else if (board[i][j] == 'S') {
+				sx = i;
+				sy = j;
+			}
+			else if (board[i][j] == '*') {
+				water_list.push_back({ i,j });
+			}
+		}
+	}
+	BFS_water();
+	int answer = BFS_hed();
+	if (answer == -1)
+		cout << "KAKTUS" << endl;
+	else
+		cout << answer << endl;
 }
