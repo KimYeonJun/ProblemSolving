@@ -26,7 +26,7 @@ DFS의 분기 조건은 두 가지 이다.
 using namespace std;
 int N;
 string s;
-int answer = 0;
+int answer = -2147483648;
 int Calc(int a, char op, int b) {
 	if (op == '+')
 		return a + b;
